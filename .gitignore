@@ -42,3 +42,7 @@ cmake-build-debug/
 # sqlite
 **/*.sqlite
 /.vs
+.cache
+compile_commands.json
+opentelemetry-cpp/
+otel-cpp/

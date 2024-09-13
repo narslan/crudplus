@@ -12,11 +12,11 @@
 /**
  * UserDb client definitions.
  */
-class UserDb : public oatpp::orm::DbClient {
-public:
-
+class UserDb : public oatpp::orm::DbClient
+{
+  public:
   UserDb(const std::shared_ptr<oatpp::orm::Executor>& executor)
-    : oatpp::orm::DbClient(executor)
+      : oatpp::orm::DbClient(executor)
   {
 
     oatpp::orm::SchemaMigration migration(executor);
@@ -26,7 +26,6 @@ public:
 
     auto version = executor->getSchemaVersion();
     OATPP_LOGd("UserDb", "Migration - OK. Version={}.", version);
-
   }
 
   QUERY(createUser,
@@ -46,19 +45,14 @@ public:
         " id=:user.id;",
         PARAM(oatpp::Object<UserDto>, user))
 
-  QUERY(getUserById,
-        "SELECT * FROM AppUser WHERE id=:id;",
-        PARAM(oatpp::Int32, id))
+  QUERY(getUserById, "SELECT * FROM AppUser WHERE id=:id;", PARAM(oatpp::Int32, id))
 
   QUERY(getAllUsers,
         "SELECT * FROM AppUser LIMIT :limit OFFSET :offset;",
         PARAM(oatpp::UInt32, offset),
         PARAM(oatpp::UInt32, limit))
 
-  QUERY(deleteUserById,
-        "DELETE FROM AppUser WHERE id=:id;",
-        PARAM(oatpp::Int32, id))
-
+  QUERY(deleteUserById, "DELETE FROM AppUser WHERE id=:id;", PARAM(oatpp::Int32, id))
 };
 
 #include OATPP_CODEGEN_END(DbClient) //<- End Codegen
