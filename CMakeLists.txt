@@ -22,6 +22,9 @@ add_library(crud-lib
 
 target_include_directories(crud-lib PUBLIC src)
 
+set(UCIADAPTER_INCLUDE_DIR uciadapter)
+include_directories(${UCIADAPTER_INCLUDE_DIR})
+
 
 ## link libs
 
@@ -34,6 +37,7 @@ target_link_libraries(crud-lib
         PUBLIC oatpp::oatpp
         PUBLIC oatpp::oatpp-swagger
         PUBLIC oatpp::oatpp-sqlite
+        PRIVATE uciadapter
 )
 
 # If CMake can't find SQLite3:
