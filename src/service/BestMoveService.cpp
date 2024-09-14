@@ -1,7 +1,12 @@
 #include "BestMoveService.hpp"
+#include "UCI.hpp"
+#include <string>
 
 std::string BestMoveService::createGame()
 {
+  uciadapter::UCI u("/usr/bin/stockfish");
 
-  return "best move";
+  std::string buf = u.GetBuffer();
+  u.stop();
+  return buf;
 };

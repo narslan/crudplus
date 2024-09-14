@@ -2,6 +2,8 @@
 #ifndef BestmoveController_hpp
 #define BestmoveController_hpp
 
+#include "dto/BestMoveDto.hpp"
+#include "dto/StatusDto.hpp"
 #include "service/BestMoveService.hpp"
 
 #include "oatpp/web/mime/ContentMappers.hpp"
@@ -30,6 +32,19 @@ class BestMoveController : public oatpp::web::server::api::ApiController
   )
   {
     return std::make_shared<BestMoveController>(apiContentMappers);
+  }
+
+  ENDPOINT_INFO(createGame)
+  {
+    info->summary = "Get one User by userId";
+
+    info->addResponse<Object<BestMoveDto>>(Status::CODE_200, "application/json");
+    info->addResponse<Object<StatusDto>>(Status::CODE_404, "application/json");
+    info->addResponse<Object<StatusDto>>(Status::CODE_500, "application/json");
+  }
+  ENDPOINT("GET", "moves", getUserById, PATH(Int32, userId))
+  {
+    return createDtoResponse(Status::CODE_200, m_bestMoveService.createGame());
   }
 };
 #endif

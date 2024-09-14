@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.20)
 project(crud)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
 add_library(crud-lib
         src/controller/StaticController.hpp
@@ -22,7 +22,10 @@ add_library(crud-lib
 
 target_include_directories(crud-lib PUBLIC src)
 
-set(UCIADAPTER_INCLUDE_DIR uciadapter)
+set(UCIADAPTER_INCLUDE_DIR uciadapter/src)
+set(UCIADAPTER_PROJECT_DIR uciadapter)
+
+add_subdirectory(${UCIADAPTER_PROJECT_DIR})
 include_directories(${UCIADAPTER_INCLUDE_DIR})
 
 
@@ -37,7 +40,6 @@ target_link_libraries(crud-lib
         PUBLIC oatpp::oatpp
         PUBLIC oatpp::oatpp-swagger
         PUBLIC oatpp::oatpp-sqlite
-        PRIVATE uciadapter
 )
 
 # If CMake can't find SQLite3:
@@ -72,7 +74,7 @@ endif()
 ## add executables
 
 add_executable(crud-exe src/App.cpp)
-target_link_libraries(crud-exe crud-lib)
+target_link_libraries(crud-exe crud-lib uciadapter)
 
 add_executable(crud-test
         test/tests.cpp

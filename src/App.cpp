@@ -1,6 +1,7 @@
 
 #include "AppComponent.hpp"
 
+#include "controller/BestMoveController.hpp"
 #include "controller/StaticController.hpp"
 #include "controller/UserController.hpp"
 
@@ -21,7 +22,7 @@ void run()
   oatpp::web::server::api::Endpoints docEndpoints;
 
   docEndpoints.append(router->addController(UserController::createShared())->getEndpoints());
-
+  docEndpoints.append(router->addController(BestMoveController::createShared())->getEndpoints());
   router->addController(oatpp::swagger::Controller::createShared(docEndpoints));
   router->addController(StaticController::createShared());
 
