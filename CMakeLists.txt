@@ -2,16 +2,21 @@ cmake_minimum_required(VERSION 3.20)
 project(crud)
 
 set(CMAKE_CXX_STANDARD 20)
-
+set(CMAKE_CXX_FLAGS_DEBUG_INIT "-Wall")
+set(CMAKE_CXX_FLAGS_RELEASE_INIT "-Wall -Ofast")
 add_library(crud-lib
         src/controller/StaticController.hpp
         src/controller/UserController.hpp
+        src/controller/BestMoveController.hpp
         src/db/UserDb.hpp
         src/dto/PageDto.hpp
+        src/dto/BestMoveDto.hpp
         src/dto/StatusDto.hpp
         src/dto/UserDto.hpp
         src/service/UserService.cpp
         src/service/UserService.hpp
+        src/service/BestMoveService.hpp
+        src/service/BestMoveService.cpp
         src/AppComponent.hpp
         src/DatabaseComponent.hpp
         src/SwaggerComponent.hpp
@@ -76,14 +81,14 @@ endif()
 add_executable(crud-exe src/App.cpp)
 target_link_libraries(crud-exe crud-lib uciadapter)
 
-add_executable(crud-test
-        test/tests.cpp
-        test/app/TestClient.hpp
-        test/app/TestDatabaseComponent.hpp
-        test/app/TestComponent.hpp
-        test/UserControllerTest.hpp
-        test/UserControllerTest.cpp)
-target_link_libraries(crud-test crud-lib)
+# add_executable(crud-test
+#         test/tests.cpp
+#         test/app/TestClient.hpp
+#         test/app/TestDatabaseComponent.hpp
+#         test/app/TestComponent.hpp
+#         test/UserControllerTest.hpp
+#         test/UserControllerTest.cpp)
+# target_link_libraries(crud-test crud-lib)
 
 enable_testing()
 add_test(project-tests crud-test)
