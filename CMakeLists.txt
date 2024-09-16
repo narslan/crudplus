@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_FLAGS_DEBUG_INIT "-Wall")
 set(CMAKE_CXX_FLAGS_RELEASE_INIT "-Wall -Ofast")
 add_library(crud-lib
+        src/controller/RoomsController.hpp
         src/controller/StaticController.hpp
         src/controller/UserController.hpp
         src/controller/BestMoveController.hpp
@@ -13,6 +14,8 @@ add_library(crud-lib
         src/dto/BestMoveDto.hpp
         src/dto/StatusDto.hpp
         src/dto/UserDto.hpp
+        src/dto/Config.hpp
+        src/dto/DTOs.hpp
         src/service/UserService.cpp
         src/service/UserService.hpp
         src/service/BestMoveService.hpp
@@ -21,7 +24,12 @@ add_library(crud-lib
         src/DatabaseComponent.hpp
         src/SwaggerComponent.hpp
         src/ErrorHandler.cpp
-        src/ErrorHandler.hpp)
+        src/ErrorHandler.hpp
+        src/utils/Nickname.hpp
+        src/utils/Nickname.cpp
+        src/utils/Statistics.hpp
+        src/utils/Statistics.cpp
+        )
 
 ## include directories
 

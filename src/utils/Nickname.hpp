@@ -29,12 +29,11 @@
 
 #include "oatpp/Types.hpp"
 
-#include <vector>
 #include <random>
 
-class Nickname {
-public:
-
+class Nickname
+{
+  public:
   static constexpr int AVATARS_SIZE = 70;
   static const char* const AVATARS[];
 
@@ -44,12 +43,11 @@ public:
   static constexpr int NOUNS_SIZE = 49;
   static const char* NOUNS[];
 
-private:
+  private:
   static thread_local std::mt19937 RANDOM_GENERATOR;
-public:
 
+  public:
   static oatpp::String random();
-
 };
 
 #endif // Nickname_hpp
