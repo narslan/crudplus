@@ -92,3 +92,12 @@ $ docker run -p 8000:8000 -t example-crud
 |`GET`|http://localhost:8000/users/{userId} | Get User by ID |
 |`DELETE`|http://localhost:8000/users/{userId} | Delete User by ID |
 |`GET`|http://localhost:8000/users/offset/{offset}/limit/{limit} | Get All Users with Paging |
+
+
+## Event system
+### Kafka
+#### create event  
+
+```sh
+ bin/kafka-topics.sh --create --topic quickstart-events --bootstrap-server localhost:9092
+ ```

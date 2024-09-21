@@ -4,6 +4,16 @@ project(crud)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_FLAGS_DEBUG_INIT "-Wall")
 set(CMAKE_CXX_FLAGS_RELEASE_INIT "-Wall -Ofast")
+
+include_directories(${GLIB_INCLUDE_DIRS})
+link_directories(${GLIB_LIBRARY_DIRS})
+set(MODERN_CPP_KAFKA_INCLUDE_DIR modern-cpp-kafka/include)
+set(MODERN_CPP_KAFKA_PROJECT_DIR modern-cpp-kafka)
+
+add_subdirectory(${MODERN_CPP_KAFKA_PROJECT_DIR})
+include_directories(${MODERN_CPP_KAFKA_INCLUDE_DIR})
+
+
 add_library(crud-lib
         src/controller/RoomsController.hpp
         src/controller/StaticController.hpp
@@ -42,18 +52,25 @@ add_subdirectory(${UCIADAPTER_PROJECT_DIR})
 include_directories(${UCIADAPTER_INCLUDE_DIR})
 
 
-## link libs
 
-find_package(oatpp          1.4.0 REQUIRED)
-find_package(oatpp-swagger  1.4.0 REQUIRED)
-find_package(oatpp-sqlite   1.4.0 REQUIRED)
+## link libs
+find_package(PkgConfig REQUIRED)
+pkg_search_module(GLIB REQUIRED glib-2.0)
+
+find_package(oatpp          1.4.0  REQUIRED)
+find_package(oatpp-swagger  1.4.0  REQUIRED)
+find_package(oatpp-sqlite   1.4.0  REQUIRED)
+
 
 target_link_libraries(crud-lib
         # Oat++
         PUBLIC oatpp::oatpp
         PUBLIC oatpp::oatpp-swagger
         PUBLIC oatpp::oatpp-sqlite
+        PUBLIC rdkafka++
+        PUBLIC glib-2.0
 )
+
 
 # If CMake can't find SQLite3:
 #
@@ -88,6 +105,15 @@ endif()
 
 add_executable(crud-exe src/App.cpp)
 target_link_libraries(crud-exe crud-lib uciadapter)
+
+add_executable(consumer src/event/consumer.cpp)
+add_definitions(${GLIB_CFLAGS_OTHER})
+
+target_link_libraries(consumer 
+         PUBLIC rdkafka++
+         PUBLIC glib-2.0
+         PUBLIC modern-cpp-kafka-api
+)
 
 # add_executable(crud-test
 #         test/tests.cpp
