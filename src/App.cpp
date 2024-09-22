@@ -1,9 +1,9 @@
 
-#include "AppComponent.hpp"
-
 #include "controller/BestMoveController.hpp"
 #include "controller/StaticController.hpp"
 #include "controller/UserController.hpp"
+
+#include "AppComponent.hpp"
 
 #include "oatpp-swagger/Controller.hpp"
 

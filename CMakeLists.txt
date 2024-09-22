@@ -35,11 +35,22 @@ add_library(crud-lib
         src/SwaggerComponent.hpp
         src/ErrorHandler.cpp
         src/ErrorHandler.hpp
+        
+        src/ws/File.cpp
+        src/ws/File.hpp
+        src/ws/Peer.cpp
+        src/ws/Peer.hpp
+        src/ws/Room.cpp
+        src/ws/Room.hpp
+        src/ws/Lobby.cpp
+        src/ws/Lobby.hpp
+
         src/utils/Nickname.hpp
         src/utils/Nickname.cpp
         src/utils/Statistics.hpp
         src/utils/Statistics.cpp
-        )
+
+       )
 
 ## include directories
 
@@ -57,14 +68,15 @@ include_directories(${UCIADAPTER_INCLUDE_DIR})
 find_package(PkgConfig REQUIRED)
 pkg_search_module(GLIB REQUIRED glib-2.0)
 
-find_package(oatpp          1.4.0  REQUIRED)
-find_package(oatpp-swagger  1.4.0  REQUIRED)
-find_package(oatpp-sqlite   1.4.0  REQUIRED)
-
+find_package(oatpp              1.4.0  REQUIRED)
+find_package(oatpp-swagger      1.4.0  REQUIRED)
+find_package(oatpp-sqlite       1.4.0  REQUIRED)
+find_package(oatpp-websocket    1.4.0  REQUIRED)
 
 target_link_libraries(crud-lib
         # Oat++
         PUBLIC oatpp::oatpp
+        PUBLIC oatpp::oatpp-websocket
         PUBLIC oatpp::oatpp-swagger
         PUBLIC oatpp::oatpp-sqlite
         PUBLIC rdkafka++
