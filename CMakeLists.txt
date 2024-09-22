@@ -7,8 +7,8 @@ set(CMAKE_CXX_FLAGS_RELEASE_INIT "-Wall -Ofast")
 
 include_directories(${GLIB_INCLUDE_DIRS})
 link_directories(${GLIB_LIBRARY_DIRS})
-set(MODERN_CPP_KAFKA_INCLUDE_DIR modern-cpp-kafka/include)
-set(MODERN_CPP_KAFKA_PROJECT_DIR modern-cpp-kafka)
+set(MODERN_CPP_KAFKA_INCLUDE_DIR src/event/modern-cpp-kafka/include)
+set(MODERN_CPP_KAFKA_PROJECT_DIR src/event/modern-cpp-kafka)
 
 add_subdirectory(${MODERN_CPP_KAFKA_PROJECT_DIR})
 include_directories(${MODERN_CPP_KAFKA_INCLUDE_DIR})
@@ -107,11 +107,13 @@ add_executable(crud-exe src/App.cpp)
 target_link_libraries(crud-exe crud-lib uciadapter)
 
 add_executable(consumer src/event/consumer.cpp)
-add_definitions(${GLIB_CFLAGS_OTHER})
 
 target_link_libraries(consumer 
-         PUBLIC rdkafka++
-         PUBLIC glib-2.0
+         PUBLIC modern-cpp-kafka-api
+)
+
+add_executable(producer src/event/producer.cpp)
+target_link_libraries(producer 
          PUBLIC modern-cpp-kafka-api
 )
 

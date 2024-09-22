@@ -1,3 +1,5 @@
+#include <atomic>
+#include <chrono>
 #include <kafka/KafkaConsumer.h>
 
 #include <cstdlib>
