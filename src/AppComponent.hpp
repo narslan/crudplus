@@ -18,7 +18,9 @@
 
 #include <oatpp/web/server/AsyncHttpConnectionHandler.hpp>
 
+#include "utils/Statistics.hpp"
 #include <oatpp/macro/component.hpp>
+
 /**
  *  Class which creates and holds Application components and registers components in oatpp::base::Environment
  *  Order of components initialization is from top to bottom
@@ -60,6 +62,11 @@ class AppComponent
     return mappers;
   }());
 
+  /**
+   *  Create statistics object
+   */
+  OATPP_CREATE_COMPONENT(std::shared_ptr<Statistics>, statistics)
+  ([] { return std::make_shared<Statistics>(); }());
   /**
    *  Create ConnectionProvider component which listens on the port
    */
