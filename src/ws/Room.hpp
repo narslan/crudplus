@@ -27,8 +27,8 @@
 #ifndef ASYNC_SERVER_ROOMS_ROOM_HPP
 #define ASYNC_SERVER_ROOMS_ROOM_HPP
 
-#include "./File.hpp"
-#include "./Peer.hpp"
+#include "File.hpp"
+#include "Peer.hpp"
 #include "dto/DTOs.hpp"
 #include "utils/Statistics.hpp"
 

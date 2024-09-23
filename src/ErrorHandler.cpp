@@ -1,12 +1,15 @@
 
 #include "ErrorHandler.hpp"
-#include "oatpp/data/stream/BufferStream.hpp"
+#include "dto/StatusDto.hpp"
+#include <oatpp/data/stream/BufferStream.hpp>
 
 ErrorHandler::ErrorHandler(const std::shared_ptr<oatpp::web::mime::ContentMappers>& mappers)
-  : m_mappers(mappers)
-{}
+    : m_mappers(mappers)
+{ }
 
-std::shared_ptr<ErrorHandler::OutgoingResponse> ErrorHandler::renderError(const HttpServerErrorStacktrace& stacktrace) {
+std::shared_ptr<ErrorHandler::OutgoingResponse>
+ErrorHandler::renderError(const HttpServerErrorStacktrace& stacktrace)
+{
 
   Status status = stacktrace.status;
   if(status.description == nullptr) {
@@ -34,12 +37,11 @@ std::shared_ptr<ErrorHandler::OutgoingResponse> ErrorHandler::renderError(const 
     mapper = m_mappers->getDefaultMapper();
   }
 
-  auto response = ResponseFactory::createResponse(stacktrace.status,error,mapper);
+  auto response = ResponseFactory::createResponse(stacktrace.status, error, mapper);
 
   for(const auto& pair : stacktrace.headers.getAll()) {
     response->putHeader(pair.first.toString(), pair.second.toString());
   }
 
   return response;
-
 }
