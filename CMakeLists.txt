@@ -17,6 +17,7 @@ include_directories(${MODERN_CPP_KAFKA_INCLUDE_DIR})
 add_library(crud-lib
         src/controller/RoomsController.hpp
         src/controller/StaticController.hpp
+        src/controller/StatisticsController.hpp
         src/controller/UserController.hpp
         src/controller/BestMoveController.hpp
         src/db/UserDb.hpp

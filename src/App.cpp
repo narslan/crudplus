@@ -1,6 +1,8 @@
 
 #include "controller/BestMoveController.hpp"
 #include "controller/StaticController.hpp"
+#include "controller/StatisticsController.hpp"
+
 #include "controller/UserController.hpp"
 
 #include "AppComponent.hpp"
@@ -25,6 +27,7 @@ void run()
   docEndpoints.append(router->addController(BestMoveController::createShared())->getEndpoints());
   router->addController(oatpp::swagger::Controller::createShared(docEndpoints));
   router->addController(StaticController::createShared());
+  router->addController(std::make_shared<StatisticsController>());
 
   /* Get connection handler component */
   OATPP_COMPONENT(std::shared_ptr<oatpp::network::ConnectionHandler>, connectionHandler);
