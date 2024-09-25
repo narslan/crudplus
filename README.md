@@ -18,7 +18,7 @@ More about Oat++:
 
 This project is using the following oatpp modules:
 
-- [oatpp](https://github.com/oatpp/oatpp) 
+- [oatpp](https://github.com/oatpp/oatpp)
 - [oatpp-swagger](https://github.com/oatpp/oatpp-swagger)
 - [oatpp-sqlite](https://github.com/oatpp/oatpp-sqlite)
 
@@ -50,54 +50,46 @@ This project is using the following oatpp modules:
 
 ##### Pre Requirements
 
-- `oatpp` 
+- `oatpp`
 - `oatpp-swagger`
 - `oatpp-sqlite` with `-DOATPP_SQLITE_AMALGAMATION=ON` cmake flag.
-
-**Note:** You may run `utility/install-oatpp-modules.sh` script to install required oatpp modules.
+- [`modern-cpp-kafka`](https://github.com/morganstanley/modern-cpp-kafka)
+- `git clone git@gitlab.com:manzerbredes/uciadapter.git`
 
 ##### Build Project
 
 ```
 $ mkdir build && cd build
 $ cmake ..
-$ make 
+$ make
 $ ./crud-exe        # - run application.
 ```
 
-#### In Docker
-
-```
-$ docker build -t example-crud .
-$ docker run -p 8000:8000 -t example-crud
-```
-
----
-
-### Endpoints 
+### Endpoints
 
 #### HTML
 
-|HTTP Method|URL|Description|
-|---|---|---|
-|`GET`|http://localhost:8000/ | Root page |
-|`GET`|http://localhost:8000/swagger/ui | Swagger UI page |
+| HTTP Method | URL                              | Description     |
+| ----------- | -------------------------------- | --------------- |
+| `GET`       | http://localhost:8000/           | Root page       |
+| `GET`       | http://localhost:8000/swagger/ui | Swagger UI page |
 
 #### User Service
 
-|HTTP Method|URL|Description|
-|---|---|---|
-|`POST`|http://localhost:8000/users | Create new User |
-|`PUT`|http://localhost:8000/users/{userId} | Update User by ID |
-|`GET`|http://localhost:8000/users/{userId} | Get User by ID |
-|`DELETE`|http://localhost:8000/users/{userId} | Delete User by ID |
-|`GET`|http://localhost:8000/users/offset/{offset}/limit/{limit} | Get All Users with Paging |
-
+| HTTP Method | URL                                                       | Description               |
+| ----------- | --------------------------------------------------------- | ------------------------- |
+| `POST`      | http://localhost:8000/users                               | Create new User           |
+| `PUT`       | http://localhost:8000/users/{userId}                      | Update User by ID         |
+| `GET`       | http://localhost:8000/users/{userId}                      | Get User by ID            |
+| `DELETE`    | http://localhost:8000/users/{userId}                      | Delete User by ID         |
+| `GET`       | http://localhost:8000/users/offset/{offset}/limit/{limit} | Get All Users with Paging |
 
 ## Event system
+
 ### Kafka
-#### create event  
+
+#### create event
 
 ```sh
  bin/kafka-topics.sh --create --topic quickstart-events --bootstrap-server localhost:9092
- ```
+```
