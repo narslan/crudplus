@@ -25,8 +25,7 @@
  *  Class which creates and holds Application components and registers components in oatpp::base::Environment
  *  Order of components initialization is from top to bottom
  */
-class AppComponent
-{
+class AppComponent {
   public:
   /**
    *  Swagger component
