@@ -5,57 +5,25 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_FLAGS_DEBUG_INIT "-Wall")
 set(CMAKE_CXX_FLAGS_RELEASE_INIT "-Wall -Ofast")
 
-include_directories(${GLIB_INCLUDE_DIRS})
-link_directories(${GLIB_LIBRARY_DIRS})
-set(MODERN_CPP_KAFKA_INCLUDE_DIR src/event/modern-cpp-kafka/include)
-set(MODERN_CPP_KAFKA_PROJECT_DIR src/event/modern-cpp-kafka)
+#include_directories(${GLIB_INCLUDE_DIRS})
+#link_directories(${GLIB_LIBRARY_DIRS})
+#set(MODERN_CPP_KAFKA_INCLUDE_DIR src/event/modern-cpp-kafka/include)
+#set(MODERN_CPP_KAFKA_PROJECT_DIR src/event/modern-cpp-kafka)
 
-add_subdirectory(${MODERN_CPP_KAFKA_PROJECT_DIR})
-include_directories(${MODERN_CPP_KAFKA_INCLUDE_DIR})
+#add_subdirectory(${MODERN_CPP_KAFKA_PROJECT_DIR})
+#include_directories(${MODERN_CPP_KAFKA_INCLUDE_DIR})
 
 
-add_library(crud-lib
-        src/controller/RoomsController.hpp
-        src/controller/StaticController.hpp
-        src/controller/StatisticsController.hpp
-        src/controller/UserController.hpp
-        src/controller/BestMoveController.hpp
-        src/db/UserDb.hpp
-        src/dto/PageDto.hpp
-        src/dto/BestMoveDto.hpp
-        src/dto/StatusDto.hpp
-        src/dto/UserDto.hpp
-        src/dto/Config.hpp
-        src/dto/DTOs.hpp
-        src/service/UserService.cpp
-        src/service/UserService.hpp
-        src/service/BestMoveService.hpp
-        src/service/BestMoveService.cpp
+add_library(websocket-lib
+        src/controller/MyController.hpp
+        src/websocket/WSListener.hpp
+        src/websocket/WSListener.cpp
         src/AppComponent.hpp
-        src/DatabaseComponent.hpp
-        src/SwaggerComponent.hpp
-        src/ErrorHandler.cpp
-        src/ErrorHandler.hpp
-        
-        src/ws/File.cpp
-        src/ws/File.hpp
-        src/ws/Peer.cpp
-        src/ws/Peer.hpp
-        src/ws/Room.cpp
-        src/ws/Room.hpp
-        src/ws/Lobby.cpp
-        src/ws/Lobby.hpp
-
-        src/utils/Nickname.hpp
-        src/utils/Nickname.cpp
-        src/utils/Statistics.hpp
-        src/utils/Statistics.cpp
-
        )
 
 ## include directories
 
-target_include_directories(crud-lib PUBLIC src)
+target_include_directories(websocket-lib PUBLIC src)
 
 set(UCIADAPTER_INCLUDE_DIR uciadapter/src)
 set(UCIADAPTER_PROJECT_DIR uciadapter)
@@ -66,22 +34,20 @@ include_directories(${UCIADAPTER_INCLUDE_DIR})
 
 
 ## link libs
-find_package(PkgConfig REQUIRED)
-pkg_search_module(GLIB REQUIRED glib-2.0)
+#find_package(PkgConfig REQUIRED)
+#pkg_search_module(GLIB REQUIRED glib-2.0)
 
 find_package(oatpp              1.4.0  REQUIRED)
-find_package(oatpp-swagger      1.4.0  REQUIRED)
-find_package(oatpp-sqlite       1.4.0  REQUIRED)
 find_package(oatpp-websocket    1.4.0  REQUIRED)
 
-target_link_libraries(crud-lib
+target_link_libraries(websocket-lib
         # Oat++
         PUBLIC oatpp::oatpp
         PUBLIC oatpp::oatpp-websocket
-        PUBLIC oatpp::oatpp-swagger
-        PUBLIC oatpp::oatpp-sqlite
-        PUBLIC rdkafka++
-        PUBLIC glib-2.0
+        #PUBLIC oatpp::oatpp-swagger
+        #PUBLIC oatpp::oatpp-sqlite
+        #PUBLIC rdkafka++
+        #PUBLIC glib-2.0
 )
 
 
@@ -111,24 +77,22 @@ add_definitions(
 
 if(CMAKE_SYSTEM_NAME MATCHES Linux)
     find_package(Threads REQUIRED)
-    target_link_libraries(crud-lib INTERFACE Threads::Threads ${CMAKE_DL_LIBS})
+    target_link_libraries(websocket-lib INTERFACE Threads::Threads ${CMAKE_DL_LIBS})
 endif()
 
 ## add executables
 
-add_executable(crud-exe src/App.cpp)
-target_link_libraries(crud-exe crud-lib uciadapter)
+add_executable(websocketd src/App.cpp)
+target_link_libraries(websocketd websocket-lib uciadapter)
 
-add_executable(consumer src/event/consumer.cpp)
+#add_executable(consumer src/event/consumer.cpp)
 
-target_link_libraries(consumer 
-         PUBLIC modern-cpp-kafka-api
-)
+#target_link_libraries(consumer PUBLIC modern-cpp-kafka-api)
 
-add_executable(producer src/event/producer.cpp)
-target_link_libraries(producer 
-         PUBLIC modern-cpp-kafka-api
-)
+#add_executable(producer src/event/producer.cpp)
+#target_link_libraries(producer 
+#         PUBLIC modern-cpp-kafka-api
+#)
 
 # add_executable(crud-test
 #         test/tests.cpp
@@ -139,5 +103,5 @@ target_link_libraries(producer
 #         test/UserControllerTest.cpp)
 # target_link_libraries(crud-test crud-lib)
 
-enable_testing()
-add_test(project-tests crud-test)
+#enable_testing()
+#add_test(project-tests crud-test)
