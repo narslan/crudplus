@@ -44,11 +44,7 @@ target_link_libraries(websocket-lib
         # Oat++
         PUBLIC oatpp::oatpp
         PUBLIC oatpp::oatpp-websocket
-        #PUBLIC oatpp::oatpp-swagger
-        #PUBLIC oatpp::oatpp-sqlite
-        #PUBLIC rdkafka++
-        #PUBLIC glib-2.0
-)
+     )
 
 
 # If CMake can't find SQLite3:
@@ -85,23 +81,3 @@ endif()
 add_executable(websocketd src/App.cpp)
 target_link_libraries(websocketd websocket-lib uciadapter)
 
-#add_executable(consumer src/event/consumer.cpp)
-
-#target_link_libraries(consumer PUBLIC modern-cpp-kafka-api)
-
-#add_executable(producer src/event/producer.cpp)
-#target_link_libraries(producer 
-#         PUBLIC modern-cpp-kafka-api
-#)
-
-# add_executable(crud-test
-#         test/tests.cpp
-#         test/app/TestClient.hpp
-#         test/app/TestDatabaseComponent.hpp
-#         test/app/TestComponent.hpp
-#         test/UserControllerTest.hpp
-#         test/UserControllerTest.cpp)
-# target_link_libraries(crud-test crud-lib)
-
-#enable_testing()
-#add_test(project-tests crud-test)
