@@ -1,18 +1,11 @@
 
-#include "oatpp-test/UnitTest.hpp"
-#include "oatpp/Environment.hpp"
-#include "UserControllerTest.hpp"
+#include "WSTest.hpp"
 
 #include <iostream>
-
-namespace {
+#include <oatpp-test/UnitTest.hpp>
 
 void runTests() {
-
-  OATPP_RUN_TEST(UserControllerTest);
-
-}
-
+  OATPP_RUN_TEST(WSTest);
 }
 
 int main() {
