@@ -83,8 +83,8 @@ endif()
 
 ## add executables
 
-add_executable(websocketd src/App.cpp)
-target_link_libraries(websocketd ${project_name}-lib uciadapter)
+add_executable(async-websocket src/App.cpp)
+target_link_libraries(async-websocket ${project_name}-lib uciadapter)
 
 # Testing
 add_executable(${project_name}-test
